@@ -81,15 +81,52 @@ public class ZonaFitApplication implements CommandLineRunner {
 				logger.info(nl+ "---   Agregar cliente   ---");
 				logger.info(nl + "Digite el nombre del cliente a agregar: " );
 				String nombre = String.valueOf(consola.nextLine());
-				logger.info(nl + "Digite el nombre del cliente a agregar: " );
+				logger.info(nl + "Digite el apellido del cliente a agregar: " );
 				String apellido = String.valueOf(consola.nextLine());
-				logger.info(nl + "Digite el nombre del cliente a agregar: " );
+				logger.info(nl + "Digite el numero de membresia del cliente a agregar: " );
 				Integer membresia = Integer.parseInt(consola.nextLine());
 				Cliente miCliente = new Cliente();
 				miCliente.setNombre(nombre);
 				miCliente.setApellido(apellido);
 				miCliente.setMembresia(membresia);
 				clienteServicio.guardarCliente(miCliente);
+				logger.info(nl+ "cliente agregado: " + miCliente +nl);
+			}
+			case 4 -> {
+				logger.info(nl + "---  Editar cliente por Id   ---" + nl);
+				logger.info(nl + "id cliente a modificar: " );
+				Integer idCliente = Integer.parseInt(consola.nextLine());
+				Cliente elCliente =clienteServicio.buscarClientePorId(idCliente);
+				if (elCliente != null){
+					logger.info(nl + "Digite el nombre del cliente a modificar: " );
+					String nombre = String.valueOf(consola.nextLine());
+					logger.info(nl + "Digite el apellido del cliente a modificar: " );
+					String apellido = String.valueOf(consola.nextLine());
+					logger.info(nl + "Digite el numero de membresia del cliente a modificar: " );
+					Integer membresia = Integer.parseInt(consola.nextLine());
+					elCliente.setNombre(nombre);
+					elCliente.setApellido(apellido);
+					elCliente.setMembresia(membresia);
+					clienteServicio.guardarCliente(elCliente);
+					logger.info(nl+ "cliente modificado: " + elCliente +nl);
+				}else {
+					logger.info("Cliente no encontrado");
+				}
+			}
+			case 5 -> {
+				logger.info(nl + "---  Eliminar cliente por Id   ---" + nl);
+				logger.info(nl + "id cliente a Eliminar: " );
+				Integer idCliente = Integer.parseInt(consola.nextLine());
+				Cliente elCliente =clienteServicio.buscarClientePorId(idCliente);
+				if (elCliente != null){
+					clienteServicio.eliminarCliente(elCliente);
+					logger.info( nl +"se elimino el cliente: " + elCliente);
+				}else{
+					logger.info("Cliente no encontrado");
+				}
+			}
+			case 6 -> {
+				salir = true;
 			}
 		}
 		return salir;
