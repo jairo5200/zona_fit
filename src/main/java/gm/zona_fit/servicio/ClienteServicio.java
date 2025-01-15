@@ -20,17 +20,18 @@ public class ClienteServicio implements IClienteServicio{
     }
 
     @Override
-    public Cliente buscarClientePorId(Cliente cliente) {
-        return null;
+    public Cliente buscarClientePorId(Integer idCliente) {
+        Cliente cliente = clienteRepositorio.findById(idCliente).orElse(null);
+        return cliente;
     }
 
     @Override
     public void guardarCliente(Cliente cliente) {
-
+        clienteRepositorio.save(cliente);
     }
 
     @Override
     public void eliminarCliente(Cliente cliente) {
-
+        clienteRepositorio.delete(cliente);
     }
 }
