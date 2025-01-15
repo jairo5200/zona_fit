@@ -126,7 +126,11 @@ public class ZonaFitApplication implements CommandLineRunner {
 				}
 			}
 			case 6 -> {
+				logger.info("Hasta pronto!" + nl + nl);
 				salir = true;
+			}
+			default -> {
+				logger.info("Opcion NO reconocida!" + opcion + nl);
 			}
 		}
 		return salir;
