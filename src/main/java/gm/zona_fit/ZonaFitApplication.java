@@ -1,5 +1,6 @@
 package gm.zona_fit;
 
+import gm.zona_fit.modelo.Cliente;
 import gm.zona_fit.servicio.IClienteServicio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -37,7 +39,7 @@ public class ZonaFitApplication implements CommandLineRunner {
 		var consola = new Scanner(System.in);
 		while(!salir){
 			var opcion = mostrarMenu(consola);
-			//salir = ejecutarOpciones(consola, opcion);
+			salir = ejecutarOpciones(consola, opcion);
 			logger.info(nl);
 		}
 	}
@@ -55,4 +57,42 @@ public class ZonaFitApplication implements CommandLineRunner {
 		var opcion = Integer.parseInt(consola.nextLine());
 		return opcion;
 	}
+
+	private boolean ejecutarOpciones(Scanner consola,int opcion){
+		var salir = false;
+		switch (opcion){
+			case 1 -> {
+				logger.info(nl + "---  Listado de clientes   ---" + nl);
+				List<Cliente> clientes = clienteServicio.listarClientes();
+				clientes.forEach(cliente -> logger.info(cliente + nl));
+			}
+			case 2 -> {
+				logger.info(nl + "---  Buscar cliente por Id   ---" + nl);
+				logger.info(nl + "id cliente a buscar: " );
+				int idCliente = Integer.parseInt(consola.nextLine());
+				Cliente elCliente =clienteServicio.buscarClientePorId(idCliente);
+				if (elCliente != null){
+					logger.info(nl + "Cliente encontrado:" + elCliente + nl);
+				}else{
+					logger.info("Cliente no encontrado"+ nl);
+				}
+			}
+			case 3 -> {
+				logger.info(nl+ "---   Agregar cliente   ---");
+				logger.info(nl + "Digite el nombre del cliente a agregar: " );
+				String nombre = String.valueOf(consola.nextLine());
+				logger.info(nl + "Digite el nombre del cliente a agregar: " );
+				String apellido = String.valueOf(consola.nextLine());
+				logger.info(nl + "Digite el nombre del cliente a agregar: " );
+				Integer membresia = Integer.parseInt(consola.nextLine());
+				Cliente miCliente = new Cliente();
+				miCliente.setNombre(nombre);
+				miCliente.setApellido(apellido);
+				miCliente.setMembresia(membresia);
+				clienteServicio.guardarCliente(miCliente);
+			}
+		}
+		return salir;
+	}
+
 }

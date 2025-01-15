@@ -7,11 +7,11 @@ import jakarta.persistence.Id;
 import lombok.*;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Data
 public class Cliente {
 
     @Id
@@ -20,4 +20,39 @@ public class Cliente {
     private String nombre;
     private String apellido;
     private Integer membresia;
+
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public Integer getMembresia() {
+        return membresia;
+    }
+
+    public void setMembresia(Integer membresia) {
+        this.membresia = membresia;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", email='" + apellido + '\'' +
+                ", membresia='" + membresia + '\'' +
+                '}';
+    }
 }
